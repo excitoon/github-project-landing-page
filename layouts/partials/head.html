@@ -1,27 +1,60 @@
-<!DOCTYPE html>
-<html>
-<head>
+<head prefix="og: http://ogp.me/ns#">
+  <meta charset="utf-8"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <base href="{{ .Site.BaseURL }}"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  {{ .Hugo.Generator }}
+  <title>{{ .Title }}: {{ .Site.Params.SubTitle }}</title>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <base href="{{ .Site.BaseURL }}">
-    <title>{{ .Title }}</title>
+  <meta name="author" content="{{ with .Site.Params.AuthorName }}{{ . }}{{ end }}"/>
+  {{ if isset .Params "description" }}
+	<meta name="description" content="{{ .Params.description }}"/>
+	{{ else }}
+	<meta name="description" content="{{ with .Site.Params.Description }}{{ . }}{{ end }}"/>
+	{{ end }}
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <meta property="og:type" content="article" />
+	<meta property="og:title" content="{{ .Title }}: {{ .Site.Params.SubTitle }}" />
+	{{ if isset .Params "description" }}
+	<meta name="og:description" content="{{ .Params.description }}" />
+	{{ else }}
+	<meta name="og:description" content="{{ with .Site.Params.Description }}{{ . }}{{ end }}" />
+	{{ end }}
+	<meta property="og:image" content="{{ .Site.BaseURL }}img/image.png" />
+	<meta property="og:site_name"  content="{{ .Title }}: {{ .Site.Params.SubTitle }}" />
 
-    <!-- Custom CSS -->
-    <link href="/css/landing-page.css" rel="stylesheet">
+	{{ if isset .Params "description" }}
+	<meta name="twitter:card" content="{{ .Params.description }}" />
+	{{ else }}
+	<meta name="twitter:card" content="{{ with .Site.Params.Description }}{{ . }}{{ end }}" />
+	{{ end }}
+	<meta name="twitter:site" content="@junkawamoto" />
 
-    <!-- Custom Fonts -->
-    <link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+  {{ $base := .Site.BaseURL }}
+  {{ with .Site.Params.Favicon }}
+  <link rel="shortcut icon" type="image/x-icon" href="{{ $base }}{{ . }}"/>
+  {{ end }}
+  {{ with .Site.Params.Icon16 }}
+  <link rel="icon" type="image/png" href="{{ $base }}{{ . }}" sizes="16x16"/>
+  {{ end }}
+  {{ with .Site.Params.Icon32 }}
+  <link rel="icon" type="image/png" href="{{ $base }}{{ . }}" sizes="32x32"/>
+  {{ end }}
+  {{ with .Site.Params.Icon96 }}
+  <link rel="icon" type="image/png" href="{{ $base }}{{ . }}" sizes="96x96"/>
+  {{ end }}
 
-    <style>
-    {{ printf "%v" (partial "template.css" . ) | safeCSS  }}
+  <!-- Bootstrap Core CSS -->
+  <link href="{{ .Site.BaseURL }}css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- Custom CSS -->
+  <link href="{{ .Site.BaseURL }}css/landing-page.css" rel="stylesheet"/>
+
+  <!-- Custom Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css"/>
+
+  <style>
+  {{ printf "%v" (partial "template.css" . ) | safeCSS  }}
   </style>
 
 </head>
-<body>
